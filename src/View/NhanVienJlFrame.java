@@ -5,7 +5,6 @@
  */
 package View;
 
-
 import Dao_Interfaces.NhanVienInterface;
 import Dao_implements.NhanVienImpl;
 import Util.loginInfomation;
@@ -23,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class NhanVienJlFrame extends javax.swing.JInternalFrame {
 
     List<NhanVien> listNV = new ArrayList<>();
-    private NhanVienInterface nvDao;
+    public NhanVienInterface nvDao;
     int index;
     String manv;
     boolean vaitro;
@@ -33,25 +32,29 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
      */
     public NhanVienJlFrame(boolean vaitro, String manv) {
         initComponents();
+        this.nvDao = new NhanVienImpl();
         this.vaitro = vaitro;
         this.manv = manv;
         fillTable();
         setStatus(true);
         //Không cho chỉnh sửa trên table
         tblNhanVien.setDefaultEditor(Object.class, null);
-        this.nvDao = new NhanVienImpl();
+        
 
     }
+
     // Đổ dữ liệu vào tblHocVien
     public void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
         model.setRowCount(0);
+        
         try {
-
+            
             listNV = nvDao.selectALL();
             for (NhanVien x : listNV) {
                 model.addRow(new Object[]{x.getMaNV(), x.getMatKhau(), x.getHoTen(), x.isVaiTro() ? "Trưởng phòng" : "Nhân viên"});
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,7 +99,26 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
     }
 
     // [btnXoa]
-    public void delete() {}
+    public void delete() {
+
+        if (!loginInfomation.isManager()) {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền xóa nhân viên này!");
+        } else {
+            int choose = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?", "Xóa", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION);
+            String manv = txtMaNV.getText();
+            try {
+                if (choose == JOptionPane.YES_OPTION) {
+                    nvDao.delete(manv);
+                    fillTable();
+                    this.clear();
+                    JOptionPane.showMessageDialog(this, "Xóa thành công");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+        }
+
+    }
 
     //Hiển thi NhanVienleen form
     public void setForm(NhanVien nv) {
@@ -119,14 +141,14 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
         return nv;
 
     }
-    
+
     // [btnClear]
     public void clear() {
         this.setForm(new NhanVien());
         this.index = -1;
         this.setStatus(true);
     }
-    
+
     // [tblHocVien double click]
     public void edit() {
         try {
@@ -150,7 +172,7 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
             return false;
         }
-        if (nvDao.select_by_id(txtMaNV.getText())!= null) {
+        if (nvDao.select_by_id(txtMaNV.getText()) != null) {
             JOptionPane.showMessageDialog(this, "Mã sinh viên đã tồn tại");
             return false;
         }
@@ -158,7 +180,7 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Mật khẩu phải lớn hơn 3 kí tự");
             return false;
         }
-         if (!txtHVT.getText().matches("[a-zA-Z][a-zA-Z ]+")) {
+        if (!txtHVT.getText().matches("[a-zA-Z][a-zA-Z ]+")) {
             JOptionPane.showMessageDialog(this, "Tên không được chứa kí tự đặc biệt");
             return false;
         }
@@ -168,17 +190,17 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
         }
         return true;
     }
-    
+
     private boolean CheckUpdate() {
         return true;
     }
-    
+
     // [btnFirst]
     public void first() {
         index = 0;
         this.edit();
     }
-    
+
     // [btnPre]
     public void prev() {
         if (index > 0) {
@@ -187,7 +209,7 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
 
         }
     }
-    
+
     // [btnLast]
     public void last() {
         index = tblNhanVien.getRowCount() - 1;
@@ -204,9 +226,6 @@ public class NhanVienJlFrame extends javax.swing.JInternalFrame {
 
     }
 
-    
-
-    
     //Cập nhât trạng thái các nút
     void setStatus(boolean b) {
         txtMaNV.setEditable(b);

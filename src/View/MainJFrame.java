@@ -28,6 +28,7 @@ public class MainJFrame extends javax.swing.JFrame {
     String manv;
     boolean vaitro;
     DoiMatKhauJFrame doiMatKhau;
+    NhanVienJlFrame nhanVien;
 
     public MainJFrame() {
         initComponents();
@@ -81,6 +82,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void openNhanVien() {
+        
+//            nhanVien = new NhanVienJlFrame(true, "TeoNV");
+//        destop.add(nhanVien).setVisible(true);
+        if (loginInfomation.authenticated()) {
+            nhanVien = new NhanVienJlFrame(vaitro, manv);
+            destop.add(nhanVien).setVisible(true);
+        }
     }
 
     void opentNguoiHoc() {

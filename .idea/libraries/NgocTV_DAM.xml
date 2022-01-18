@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="NgocTV_DAM">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/NgocTV_DAM.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

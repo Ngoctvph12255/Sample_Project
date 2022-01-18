@@ -18,10 +18,12 @@ import model.NhanVien;
  *
  * @author ACER
  */
-public class NhanVienImpl implements NhanVienInterface{
+public class NhanVienImpl implements NhanVienInterface {
+
     String insert_sql = "insert into nhanvien values(?,?,?,?)";
     String select_id_sql = "select * from nhanvien where manv=?";
     String update_sql = "update NhanVien set MatKhau = ?, HoTen = ?, VaiTro = ? where MaNV = ?";
+    String select_all = "select * from NhanVien";
     @Override
     public void insert(NhanVien entity) {
         try {
@@ -33,7 +35,7 @@ public class NhanVienImpl implements NhanVienInterface{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-   
+
     }
 
     @Override
@@ -61,37 +63,38 @@ public class NhanVienImpl implements NhanVienInterface{
 
     @Override
     public List<NhanVien> selectALL() {
-         return this.selectbySQL("select * from nhanvien");
+        
+        List<NhanVien> listNV = this.selectbySQL(select_all);
+        return listNV;
     }
 
     @Override
     public NhanVien select_by_id(String id) {
-       List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
-      if(listNV.isEmpty()){
-          return null;
-      }
-      return listNV.get(0);
+        List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
+        if (listNV.isEmpty()) {
+            return null;
+        }
+        return listNV.get(0);
     }
 
     @Override
     public List<NhanVien> selectbySQL(String sql, Object... arg) {
-         List<NhanVien> listNV = new ArrayList<>();
+        List<NhanVien> listNV = new ArrayList<>();
         try {
             ResultSet rs = JDBCHeader.query(sql, arg);
-            while(rs.next()){
+            while (rs.next()) {
                 NhanVien nv = new NhanVien();
-                nv.setMaNV(rs.getString("manv"));
-                nv.setHoTen(rs.getString("hoten"));
-                nv.setMatKhau(rs.getString("matkhau"));
-                nv.setVaiTro(rs.getBoolean("Vaitro"));
+                nv.setMaNV(rs.getString("MaNV"));
+                nv.setHoTen(rs.getString("HoTen"));
+                nv.setMatKhau(rs.getString("MatKhau"));
+                nv.setVaiTro(rs.getBoolean("VaiTro"));
                 listNV.add(nv);
             }
             rs.getStatement().getConnection().close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-    return listNV;
+        return listNV;
     }
-    
+
 }
