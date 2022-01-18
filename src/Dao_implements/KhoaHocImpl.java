@@ -6,7 +6,9 @@ package Dao_implements;
 
 import Dao_Interfaces.KhoaHocInterfaces;
 import JDBC.JDBCHeader;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.KhoaHoc;
 
@@ -72,7 +74,25 @@ public class KhoaHocImpl  implements KhoaHocInterfaces{
 
     @Override
     public List<KhoaHoc> selectbySQL(String sql, Object... arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<KhoaHoc> listKH = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHeader.query(sql, arg);
+            while (rs.next()) {
+                KhoaHoc kh = new KhoaHoc();
+                kh.setMaKH(rs.getInt("MaKH"));
+                kh.setMaCD(rs.getString("MaCD"));
+                kh.setHocPhi(rs.getDouble("hocphi"));
+                kh.setThoiLuong(rs.getInt("thoiluong"));
+                kh.setNgayKG(rs.getDate("ngayKG"));
+                kh.setGhiChu(rs.getString("ghichu"));
+                kh.setMaNV(rs.getString("manv"));
+                kh.setNgayTao(rs.getDate("ngaytao"));
+                listKH.add(kh);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listKH;
     }
     
 }
