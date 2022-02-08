@@ -27,6 +27,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     String manv;
     boolean vaitro;
+    ChuyenDelFrame chuyenDe;
     DoiMatKhauJFrame doiMatKhau;
     NhanVienJlFrame nhanVien;
 
@@ -95,6 +96,14 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void OpenChuyenDe() {
+        if (loginInfomation.authenticated()) {
+            chuyenDe = new ChuyenDelFrame(this.vaitro);
+            destop.add(chuyenDe);
+
+            chuyenDe.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }
 
     void openKhoaHoc() {

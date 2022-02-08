@@ -72,9 +72,6 @@ public class NhanVienImpl implements NhanVienInterface {
     @Override
     public NhanVien selectById(String id) {
         List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
-        if (listNV.isEmpty()) {
-            return null;
-        }
         return listNV.get(0);
     }
 
