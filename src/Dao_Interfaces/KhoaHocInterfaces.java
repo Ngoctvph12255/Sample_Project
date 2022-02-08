@@ -13,9 +13,14 @@ import model.KhoaHoc;
  */
 public interface KhoaHocInterfaces {
     public void insert(KhoaHoc entity);
+
     public void update(KhoaHoc entity);
+
     public void delete(String manv);
+
     public List<KhoaHoc> selectALL();
-public KhoaHoc find_by_id(Integer key);
+
+    public KhoaHoc findById(Integer key);
+
     public List<KhoaHoc> selectbySQL(String sql, Object... arg);
 }

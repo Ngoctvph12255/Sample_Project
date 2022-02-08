@@ -24,6 +24,7 @@ public class NhanVienImpl implements NhanVienInterface {
     String select_id_sql = "select * from nhanvien where manv=?";
     String update_sql = "update NhanVien set MatKhau = ?, HoTen = ?, VaiTro = ? where MaNV = ?";
     String select_all = "select * from NhanVien";
+
     @Override
     public void insert(NhanVien entity) {
         try {
@@ -63,13 +64,13 @@ public class NhanVienImpl implements NhanVienInterface {
 
     @Override
     public List<NhanVien> selectALL() {
-        
+
         List<NhanVien> listNV = this.selectbySQL(select_all);
         return listNV;
     }
 
     @Override
-    public NhanVien select_by_id(String id) {
+    public NhanVien selectById(String id) {
         List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
         if (listNV.isEmpty()) {
             return null;

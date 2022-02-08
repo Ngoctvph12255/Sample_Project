@@ -17,6 +17,6 @@ public interface NhanVienInterface {
     public void update(NhanVien entity);
     public void delete(String manv);
     public List<NhanVien> selectALL();
-    public NhanVien select_by_id(String key);
+    public NhanVien selectById(String key);
     public List<NhanVien> selectbySQL(String sql, Object... arg);
 }
