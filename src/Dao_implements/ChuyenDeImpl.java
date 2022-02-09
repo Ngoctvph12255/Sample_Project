@@ -20,11 +20,6 @@ import model.ChuyenDe;
  */
 public class ChuyenDeImpl implements ChuyenDeInterface {
 
-    String insert_sql = "insert into ChuyenDe values(?,?,?,?)";
-    String select_id_sql = "select * from ChuyenDe where manv=?";
-    String update_sql = "update ChuyenDe set MatKhau = ?, HoTen = ?, VaiTro = ? where MaNV = ?";
-    String select_all = "select * from ChuyenDe";
-
     @Override
     public void insert(ChuyenDe entity) {
         String insertData = "insert into chuyende values(?,?,?,?,?,?)";
@@ -77,6 +72,9 @@ public class ChuyenDeImpl implements ChuyenDeInterface {
     @Override
     public ChuyenDe selectById(String key) {
         List<ChuyenDe> list = this.selectbySQL("select * from chuyende where macd=?", key);
+        if (list.isEmpty()) {
+            return null;
+        }
         return list.get(0);
     }
 
