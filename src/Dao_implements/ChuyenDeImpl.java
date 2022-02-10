@@ -22,9 +22,9 @@ public class ChuyenDeImpl implements ChuyenDeInterface {
 
     @Override
     public void insert(ChuyenDe entity) {
-        String insertData = "insert into chuyende values(?,?,?,?,?,?)";
+        String insert = "insert into chuyende values(?,?,?,?,?,?)";
         try {
-            JDBCHeader.update(insertData,
+            JDBCHeader.update(insert,
                     entity.getMaCD(),
                     entity.getTenCD(),
                     entity.getHocPhi(),
@@ -80,7 +80,7 @@ public class ChuyenDeImpl implements ChuyenDeInterface {
 
     @Override
     public List<ChuyenDe> selectbySQL(String sql, Object... arg) {
-         List<ChuyenDe> listCD = new ArrayList<>();
+        List<ChuyenDe> listCD = new ArrayList<>();
         try {
             ResultSet rs = JDBCHeader.query(sql, arg);
             while (rs.next()) {

@@ -16,10 +16,14 @@ public interface KhoaHocInterfaces {
 
     public void update(KhoaHoc entity);
 
-    public void delete(String manv);
+    public void delete(Integer manv);
 
     public List<KhoaHoc> selectALL();
-
+    
+    public List<KhoaHoc> selectByChuyenDe(String MaCD);
+    
+    public List<Integer> selectYear();
+    
     public KhoaHoc findById(Integer key);
 
     public List<KhoaHoc> selectbySQL(String sql, Object... arg);

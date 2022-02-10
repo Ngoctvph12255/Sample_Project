@@ -21,8 +21,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NhanVienJlFrame extends javax.swing.JInternalFrame {
 
-    List<NhanVien> listNV = new ArrayList<>();
     public NhanVienInterface nvDao;
+    List<NhanVien> listNV = new ArrayList<>();
     int index;
     String manv;
     boolean vaitro;

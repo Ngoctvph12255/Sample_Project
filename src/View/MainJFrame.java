@@ -28,6 +28,7 @@ public class MainJFrame extends javax.swing.JFrame {
     String manv;
     boolean vaitro;
     ChuyenDelFrame chuyenDe;
+    KhoaHocJFrame khoaHoc;
     DoiMatKhauJFrame doiMatKhau;
     NhanVienJlFrame nhanVien;
 
@@ -83,9 +84,6 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void openNhanVien() {
-        
-//            nhanVien = new NhanVienJlFrame(true, "TeoNV");
-//        destop.add(nhanVien).setVisible(true);
         if (loginInfomation.authenticated()) {
             nhanVien = new NhanVienJlFrame(vaitro, manv);
             destop.add(nhanVien).setVisible(true);
@@ -107,6 +105,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void openKhoaHoc() {
+        if (loginInfomation.authenticated()) {
+            khoaHoc = new KhoaHocJFrame(vaitro, manv);
+            destop.add(khoaHoc);
+            khoaHoc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }
 
     void openDoiMatKhau() {

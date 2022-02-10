@@ -59,10 +59,9 @@ public class ChuyenDelFrame extends javax.swing.JInternalFrame {
 
     }
 
-    public void insertData() {
+    public void insert() {
         try {
             ChuyenDe cd = getText();
-            System.out.println("Doan nay vao insert rồi nhé: "+cd);
             cdDao.insert(cd);
             fillTable();
             JOptionPane.showMessageDialog(this, "Thêm chuyên đề thành công");
@@ -73,7 +72,7 @@ public class ChuyenDelFrame extends javax.swing.JInternalFrame {
 
     }
 
-    public void updateData() {
+    public void update() {
         try {
             ChuyenDe cd = getText();
             cdDao.update(cd);
@@ -109,8 +108,7 @@ public class ChuyenDelFrame extends javax.swing.JInternalFrame {
         cd.setThoiLuong(Integer.parseInt(txtThoiLuong.getText()));
         cd.setMoTa(txtMoTa.getText());
         cd.setHinhAnh(lblAnh.getToolTipText());
-        
-        System.out.println("Insert CHuyen de :"+ cd.toString() );
+
         return cd;
     }
 
@@ -201,7 +199,7 @@ public class ChuyenDelFrame extends javax.swing.JInternalFrame {
                 || txtMoTa.getText().equals("")
                 || txtTenCD.getText().equals("")
                 || txtThoiLuong.getText().equals("")
-                || lblAnh.getIcon() == null) { // Check null image 
+                || lblAnh.getIcon() == null) { // Check null image
             JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
             return false;
         }
@@ -577,14 +575,14 @@ public class ChuyenDelFrame extends javax.swing.JInternalFrame {
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInsertActionPerformed
 
         if (check()) {
-            insertData();
+            insert();
         }
     }// GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUpdateActionPerformed
 
         if (checkUpdate()) {
-            updateData();
+            update();
         }
     }// GEN-LAST:event_btnUpdateActionPerformed
 

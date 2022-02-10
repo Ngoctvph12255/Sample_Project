@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.KhoaHoc;
 
 /**
@@ -56,7 +58,13 @@ public class KhoaHocImpl implements KhoaHocInterfaces {
     }
 
     @Override
-    public void delete(String manv) {
+    public void delete(Integer makh) {
+        String delete ="delete from khoahoc where makh= ?";
+        try {
+            JDBCHeader.update(delete, makh);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhoaHocImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -93,6 +101,29 @@ public class KhoaHocImpl implements KhoaHocInterfaces {
             e.printStackTrace();
         }
         return listKH;
+    }
+
+    @Override
+    public List<KhoaHoc> selectByChuyenDe(String macd) {
+        String sql = "select * from khoahoc where macd=?";
+        return selectbySQL(sql, macd);
+    }
+
+    @Override
+    public List<Integer> selectYear() {
+      String sql ="select distinct year(ngayKG) from khoahoc order by year(NgayKG) desc";
+        List<Integer> list= new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHeader.query(sql);
+            while(rs.next()){
+                list.add(rs.getInt(1));
+            }
+            rs.getStatement().getConnection().close();
+        } catch (SQLException e) {
+           throw new RuntimeException(e);
+        }
+       return list;
+        
     }
 
 }
