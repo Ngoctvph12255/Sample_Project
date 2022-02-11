@@ -24,7 +24,7 @@ import model.KhoaHoc;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class KhoaHocJFrame extends javax.swing.JInternalFrame {
 

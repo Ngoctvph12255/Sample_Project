@@ -18,7 +18,7 @@ import Util.loginInfomation;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class DangNhapJDiaLog extends javax.swing.JDialog {
 

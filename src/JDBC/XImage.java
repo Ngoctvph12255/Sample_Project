@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class XImage {
 

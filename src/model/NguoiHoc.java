@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class NguoiHoc {
     String maNH;

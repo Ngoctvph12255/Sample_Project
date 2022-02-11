@@ -10,7 +10,7 @@ import model.NhanVien;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class loginInfomation {
 //    đối tượng chứa thông tin của người sử dụng sau khi đăng nhập

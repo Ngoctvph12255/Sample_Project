@@ -16,7 +16,7 @@ import model.ChuyenDe;
 
 /**
  *
- * @author ACER
+ * @author NgocTV
  */
 public class ChuyenDeImpl implements ChuyenDeInterface {
 

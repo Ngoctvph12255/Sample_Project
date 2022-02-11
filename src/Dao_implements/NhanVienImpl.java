@@ -16,7 +16,7 @@ import model.NhanVien;
 
 /**
  *
- * @author ACER
+ * @author NgocTV
  */
 public class NhanVienImpl implements NhanVienInterface {
 
@@ -72,9 +72,9 @@ public class NhanVienImpl implements NhanVienInterface {
     @Override
     public NhanVien selectById(String id) {
         List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
-        if(listNV.isEmpty()){
-          return null;
-      }
+        if (listNV.isEmpty()) {
+            return null;
+        }
         return listNV.get(0);
     }
 

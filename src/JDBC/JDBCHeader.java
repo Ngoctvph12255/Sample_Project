@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class JDBCHeader {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";

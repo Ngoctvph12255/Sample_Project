@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class NhanVien {
     String maNV;

@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class HocVien {
     int maHV;

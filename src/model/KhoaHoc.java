@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class KhoaHoc {
 

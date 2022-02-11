@@ -9,14 +9,19 @@ import model.NhanVien;
 
 /**
  *
- * @author ACER
+ * @author NgocTV
  */
 public interface NhanVienInterface {
-    
+
     public void insert(NhanVien entity);
+
     public void update(NhanVien entity);
+
     public void delete(String manv);
+
     public List<NhanVien> selectALL();
+
     public NhanVien selectById(String key);
+
     public List<NhanVien> selectbySQL(String sql, Object... arg);
 }

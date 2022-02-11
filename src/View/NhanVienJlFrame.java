@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class NhanVienJlFrame extends javax.swing.JInternalFrame {
 

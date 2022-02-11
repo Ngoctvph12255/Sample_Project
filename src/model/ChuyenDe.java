@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class ChuyenDe {
     String maCD;

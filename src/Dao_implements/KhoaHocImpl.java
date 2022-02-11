@@ -16,7 +16,7 @@ import model.KhoaHoc;
 
 /**
  *
- * @author ACER
+ * @author NgocTV
  */
 public class KhoaHocImpl implements KhoaHocInterfaces {
 
@@ -59,7 +59,7 @@ public class KhoaHocImpl implements KhoaHocInterfaces {
 
     @Override
     public void delete(Integer makh) {
-        String delete ="delete from khoahoc where makh= ?";
+        String delete = "delete from khoahoc where makh= ?";
         try {
             JDBCHeader.update(delete, makh);
         } catch (SQLException ex) {
@@ -111,19 +111,19 @@ public class KhoaHocImpl implements KhoaHocInterfaces {
 
     @Override
     public List<Integer> selectYear() {
-      String sql ="select distinct year(ngayKG) from khoahoc order by year(NgayKG) desc";
-        List<Integer> list= new ArrayList<>();
+        String sql = "select distinct year(ngayKG) from khoahoc order by year(NgayKG) desc";
+        List<Integer> list = new ArrayList<>();
         try {
             ResultSet rs = JDBCHeader.query(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(rs.getInt(1));
             }
             rs.getStatement().getConnection().close();
         } catch (SQLException e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
-       return list;
-        
+        return list;
+
     }
 
 }

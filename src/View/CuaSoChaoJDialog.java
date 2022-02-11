@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class CuaSoChaoJDialog extends javax.swing.JDialog {
 

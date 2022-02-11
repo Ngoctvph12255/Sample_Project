@@ -9,14 +9,19 @@ import model.ChuyenDe;
 
 /**
  *
- * @author ACER
+ * @author NgocTV
  */
 public interface ChuyenDeInterface {
-    
+
     public void insert(ChuyenDe entity);
+
     public void update(ChuyenDe entity);
+
     public void delete(String key);
+
     public List<ChuyenDe> selectALL();
+
     public ChuyenDe selectById(String key);
+
     public List<ChuyenDe> selectbySQL(String sql, Object... arg);
 }

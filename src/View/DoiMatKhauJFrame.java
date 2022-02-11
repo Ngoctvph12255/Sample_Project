@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Dell
+ * @author NgocTV
  */
 public class DoiMatKhauJFrame extends javax.swing.JInternalFrame {
 private NhanVienInterface nvDao;
