@@ -89,7 +89,21 @@ public class HocVienImpl implements HocVienInterface {
 
     @Override
     public List<HocVien> selectBySQL(String sql, Object... arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<HocVien> listHV = new ArrayList<>();
+        try {
+            ResultSet rs = JDBC.JDBCHeader.query(sql, arg);
+            while (rs.next()) {
+                HocVien hv = new HocVien();
+                hv.setMaHV(rs.getInt("mahv"));
+                hv.setMaKH(rs.getInt("makh"));
+                hv.setMaNH(rs.getString("manh"));
+                hv.setDiem(rs.getDouble("diem"));
+                listHV.add(hv);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listHV;
     }
 
     
