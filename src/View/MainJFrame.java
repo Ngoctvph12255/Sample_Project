@@ -27,8 +27,10 @@ public class MainJFrame extends javax.swing.JFrame {
     
     String manv;
     boolean vaitro;
+    NguoiHocJFrame nguoiHoc;
     ChuyenDelFrame chuyenDe;
     KhoaHocJFrame khoaHoc;
+    HocVienJFrame hv;
     DoiMatKhauJFrame doiMatKhau;
     NhanVienJlFrame nhanVien;
 
@@ -91,6 +93,15 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void opentNguoiHoc() {
+        //Kiểm tra đăng nhập
+        if (loginInfomation.authenticated()) {
+            nguoiHoc = new NguoiHocJFrame(this.vaitro, this.manv);
+            destop.add(nguoiHoc);
+
+            nguoiHoc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }
 
     void OpenChuyenDe() {
@@ -143,6 +154,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     void openHocVien() {
+        if (loginInfomation.authenticated()) {
+            hv = new HocVienJFrame();
+            destop.add(hv).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }
     void openAbout(){ }
     void openWebsite() throws URISyntaxException, IOException {
