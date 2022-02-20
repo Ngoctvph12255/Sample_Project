@@ -16,4 +16,6 @@ public interface ThongKeInterface {
     public List<Object[]> getSlNguoiHoc();
 
     public List<Object[]> getDiemChuyenDe();
+    
+    public List<Object[]> getDoanhThu(int nam);
 }

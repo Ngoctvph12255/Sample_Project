@@ -5,6 +5,7 @@
 package Dao_implements;
 
 import Dao_Interfaces.NhanVienInterface;
+import Dao_Interfaces.ThongKeInterface;
 import JDBC.JDBCHeader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,90 +13,134 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.NhanVien;
 
 /**
  *
  * @author NgocTV
  */
-public class NhanVienImpl implements NhanVienInterface {
-
-    String insert_sql = "insert into nhanvien values(?,?,?,?)";
-    String select_id_sql = "select * from nhanvien where manv=?";
-    String update_sql = "update NhanVien set MatKhau = ?, HoTen = ?, VaiTro = ? where MaNV = ?";
-    String select_all = "select * from NhanVien";
+public class ThongKeImpl implements ThongKeInterface {
 
     @Override
-    public void insert(NhanVien entity) {
+    public List<Object[]> getBangDiem(Integer makh) {
+        List<Object[]> list = new ArrayList<>();
         try {
-            JDBCHeader.update(insert_sql,
-                    entity.getMaNV(),
-                    entity.getMatKhau(),
-                    entity.getHoTen(),
-                    entity.isVaiTro());
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void update(NhanVien entity) {
-        try {
-            JDBCHeader.update(update_sql,
-                    entity.getMatKhau(),
-                    entity.getHoTen(),
-                    entity.isVaiTro(),
-                    entity.getMaNV());
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(String key) {
-        try {
-            String deletetData = "delete from nhanvien where manv=?";
-            JDBCHeader.update(deletetData, key);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<NhanVien> selectALL() {
-
-        List<NhanVien> listNV = this.selectbySQL(select_all);
-        return listNV;
-    }
-
-    @Override
-    public NhanVien selectById(String id) {
-        List<NhanVien> listNV = this.selectbySQL(select_id_sql, id);
-        if (listNV.isEmpty()) {
-            return null;
-        }
-        return listNV.get(0);
-    }
-
-    @Override
-    public List<NhanVien> selectbySQL(String sql, Object... arg) {
-        List<NhanVien> listNV = new ArrayList<>();
-        try {
-            ResultSet rs = JDBCHeader.query(sql, arg);
-            while (rs.next()) {
-                NhanVien nv = new NhanVien();
-                nv.setMaNV(rs.getString("MaNV"));
-                nv.setHoTen(rs.getString("HoTen"));
-                nv.setMatKhau(rs.getString("MatKhau"));
-                nv.setVaiTro(rs.getBoolean("VaiTro"));
-                listNV.add(nv);
+            ResultSet rs = null;
+            try {
+                String sql = "{call sp_BangDiem(?)}";
+                rs = JDBCHeader.query(sql, makh);
+                 while (rs.next()) {
+                    double diem = rs.getDouble("diem");
+                    String xeploai = "Xuất sắc";
+                    if (diem < 0) {
+                        xeploai = "Chưa nhập";
+                    } else if (diem < 5) {
+                        xeploai = "Chưa đạt";
+                    } else if (diem < 6.5) {
+                        xeploai = "Trung bình";
+                    } else if (diem < 7.5) {
+                        xeploai = "Khá";
+                    } else if (diem < 9) {
+                        xeploai = "Giỏi";
+                    }
+                    Object[] model = {
+                        rs.getString("manh"),
+                        rs.getString("hoten"),
+                        diem,
+                        xeploai
+                    };
+                    list.add(model);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
             }
-            rs.getStatement().getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Object[]> getSlNguoiHoc() {
+          List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "{call sp_ThongKeNguoiHoc}";
+                rs = JDBCHeader.query(sql);
+                while (rs.next()) {
+                    Object[] model = {
+                        rs.getInt("Nam"),
+                        rs.getInt("soluong"),
+                        rs.getDate("dautien"),
+                        rs.getDate("cuoicung")
+                    };
+                    list.add(model);
+
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Object[]> getDiemChuyenDe() {
+       List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "{call sp_ThongKeDiem}";
+                rs = JDBCHeader.query(sql);
+                while (rs.next()) {
+                    Object[] model = {
+                        rs.getString("ChuyenDe"),
+                        rs.getInt("SoHV"),
+                        rs.getDouble("ThapNhat"),
+                        rs.getDouble("CaoNhat"),
+                        rs.getDouble("TrungBinh")
+                    };
+                    list.add(model);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listNV;
+        return list;
+    }
+
+    @Override
+    public List<Object[]> getDoanhThu(int nam) {
+      List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "{call sp_ThongKeDoanhThu(?)}";
+                rs = JDBCHeader.query(sql, nam);
+                while (rs.next()) {
+                    Object[] model = {
+                        rs.getString("Chuyende"),
+                        rs.getInt("SoKH"),
+                        rs.getInt("SoHV"),
+                        rs.getDouble("DoanhThu"),
+                        rs.getDouble("ThapNhat"),
+                        rs.getDouble("CaoNhat"),
+                        rs.getDouble("TrungBinh")
+                    };
+                    list.add(model);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

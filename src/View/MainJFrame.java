@@ -31,6 +31,7 @@ public class MainJFrame extends javax.swing.JFrame {
     ChuyenDelFrame chuyenDe;
     KhoaHocJFrame khoaHoc;
     HocVienJFrame hv;
+    ThongKeJFrame tk;
     DoiMatKhauJFrame doiMatKhau;
     NhanVienJlFrame nhanVien;
 
@@ -151,6 +152,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
 
     void openThongKe(int index) {
+        if (loginInfomation.authenticated()) {
+            tk = new ThongKeJFrame(index, this.vaitro);
+            destop.add(tk);
+            tk.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập");
+        }
     }
 
     void openHocVien() {
